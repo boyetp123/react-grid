@@ -387,8 +387,9 @@ export class Grid {
         // console.info('using array total time for ' + len + ' records ' + ( (endTime - startTime)/1000 ) + ' secs');
     }
     initSortWebWorker() {
+        let self;
         let sortFun = () => {
-            this.addEventListener('message', (e) => {
+            self.addEventListener('message', (e) => {
                 // console.info('message past to start sorting', e.data );
                 let data = e.data;
                 let field = data.field;
