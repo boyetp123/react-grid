@@ -4,7 +4,8 @@ import './App.css';
 // import { Data } from './Data'
 import { Game } from './tictactoe';
 import { ColorListTable } from './colors';
-import { Grid } from './mygrid';
+// import { Grid } from './lib/mygrid';
+import { GridTest } from './grid';
 
 class App extends Component {
 
@@ -32,7 +33,7 @@ class App extends Component {
         </div>
         <div>
           <h3> Grid 1 here </h3>
-          
+          <GridTest/>
         </div>
 
       </div>
