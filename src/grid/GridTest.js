@@ -21,7 +21,7 @@ export class GridTest extends Component {
         {headerName: 'Modified', field: 'dateModified', width: '90px' ,type:'text', format:'0' }
     ];
     gridOptions: any = {
-        columnDefs: this.atheleteColumnDefs, //[],
+        columnDefs: [], // this.atheleteColumnDefs, 
         rowData: [],
         width:'800px',
         height:'400px',
@@ -45,9 +45,46 @@ export class GridTest extends Component {
     componentDidMount() {
         console.log('componentDidMount');
         // this.setState({colorList: Data.getColors() });
-        this.grid = new Grid('#grid-1',this.gridOptions)
+        this.grid = new Grid('#grid-1',this.gridOptions);
+        this.loadAthletes();
     }
-        
+    loadAthletes() {
+        (new Promise( (resolve, reject) => {
+            this.gridOptions.isGrouped = false;
+            this.gridOptions.isDataAlreadyGrouped = false;
+            this.gridOptions.api.setColumnDefs(this.atheleteColumnDefs );
+            this.gridOptions.pinnedLeftCount = 1;
+            resolve('definition-loded')
+        })).then( result => {
+            this.gridOptions.api.showBusyIcon();
+            if (result === 'definition-loded' ) {
+                return (new Promise( (resolve, reject) => {
+                    fetch('/data/olympicAthletes.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        resolve(data);
+                    }).catch(err => {
+                        console.error('fail',err);
+                        reject(err);
+                    });
+                }));
+            }
+        }).then( (result: any ) => {
+            if (result) {
+                this.bigData = result.data;
+                this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
+                this.gridOptions.api.hideBusyIcon();
+            }
+        })
+        // fetch('/data/olympicAthletes.json')
+        // .then(response => response.json())
+        // .then(data => {
+        //     this.gridOptions.api.setDataRow(data.data.slice(0,200) );
+        // }).catch(err => {
+        //     console.error('fail',err);
+        // });
+    }    
+
     render() {
         return (
             <div>

@@ -1,9 +1,9 @@
 // import {ColumnDef, GridOptions, SortClasses, DefaultFormats, rowObject, 
 // 		GridHdrClasses, HAlignmentClasses} from './mygridDefs';
 import { ColumnDef, SortClasses, GridHdrClasses, HAlignmentClasses } from './mygridDefs';
-import { moment } from 'moment';
-import { numeral } from 'numeraljs';
-import { $ } from 'jquery';
+import  moment  from 'moment';
+import numeral from 'numeraljs';
+import  $  from 'jquery';
 
 export class Grid {
     constructor(selector, gridOptions) {
