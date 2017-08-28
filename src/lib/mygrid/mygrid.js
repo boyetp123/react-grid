@@ -1,9 +1,17 @@
+/*
+    do sorting on the web workers
+*/
+/*
+ import moment  from 'moment';
+ import numeral from 'numeraljs';
+ import $ from 'jquery';
+*/
 // import {ColumnDef, GridOptions, SortClasses, DefaultFormats, rowObject, 
 // 		GridHdrClasses, HAlignmentClasses} from './mygridDefs';
 import { ColumnDef, SortClasses, GridHdrClasses, HAlignmentClasses } from './mygridDefs';
-import  moment  from 'moment';
+import moment  from 'moment';
 import numeral from 'numeraljs';
-import  $  from 'jquery';
+import $ from 'jquery';
 
 export class Grid {
     constructor(selector, gridOptions) {
@@ -175,7 +183,8 @@ export class Grid {
             setDataRow: this.setDataRow.bind(this),
             setColumnDefs: this.setColumnDefs.bind(this),
             showBusyIcon: this.showBusyIcon.bind(this),
-            hideBusyIcon: this.hideBusyIcon.bind(this)
+            hideBusyIcon: this.hideBusyIcon.bind(this),
+            setSortFun: this.setSortFun.bind(this)
         };
     }
     setColumnDefs(colDefs) {
@@ -389,57 +398,55 @@ export class Grid {
     initSortWebWorker() {
         let self;
         let sortFun = () => {
+            let sortFunc2, sortFunc, fparams;
             self.addEventListener('message', (e) => {
                 // console.info('message past to start sorting', e.data );
                 let data = e.data;
-                let field = data.field;
-                let sortingDir = data.sortingDir;
-                // let rowData = data.rowData;
-                let str = data.sortFunc;
-                let fparams = str.match(/\(.*\)/g)[0].replace(/\(|\)/g, '').split(',');
-                // let firstIdx = str.indexOf('{') ;
-                // let lastIdx = str.lastIndexOf('}');
-                let fbody = str.substring(str.indexOf('{') + 1, str.lastIndexOf('}')).trim();
-                let sortFunc = new Function(fparams[0], fparams[1], fbody);
-                let sortFunc2 = sortFunc(field, sortingDir);
-                // console.info('rowData',rowData.length)
-                let sortedData = data.rowData.sort(sortFunc2);
-                postMessage({ sortedData: sortedData });
+                let sortedData;
+                // let field: string = data.field;
+                // let sortingDir: string = data.sortingDir;
+                if (data.message === 'sort') {
+                    // sortFunc2 = sortFunc(field, sortingDir);	
+                    sortFunc2 = sortFunc(e.data);
+                    console.info('message past to start sorting', e.data, 'sortFunc2', sortFunc2);
+                    sortedData = data.rowData.sort(sortFunc2);
+                    postMessage({ sortedData: sortedData });
+                }
+                else if (data.message === 'setSortFunction') {
+                    let str = data.sortFunc;
+                    fparams = str.match(/\(.*\)/g)[0].replace(/\(|\)/g, '').split(',');
+                    let fbody = str.substring(str.indexOf('{') + 1, str.lastIndexOf('}')).trim();
+                    // sortFunc = new Function(fparams[0], fparams[1], fbody);
+                    sortFunc = new Function(fparams[0], fbody);
+                    postMessage({});
+                }
             });
         };
         let strFun = '(' + sortFun + ')()';
-        // console.info('strFun', strFun);
-        // this.sortWebWorker = new Worker(URL.createObjectURL(new Blob(['('+ sortFun +')()'])));
         this.sortWebWorker = new Worker(URL.createObjectURL(new Blob([strFun])));
         this.sortWebWorker.onmessage = this.onSortDone.bind(this);
     }
     onSortDone(msg) {
         // console.info('onSortDone', msg.data )
-        this.setDataRow(msg.data.sortedData);
+        if (msg.data && msg.data.sortedData) {
+            this.setDataRow(msg.data.sortedData);
+        }
         this.hideBusyIcon();
     }
-    // sortData(field:string, sortDir:string): any {
-    // 	let sortFun = (a,b) => {
-    // 		let retval = 0;
-    // 		if (sortDir === 'asc') {
-    // 			if (a[field] > b[field]) {
-    // 				retval = 1;
-    // 			} else if (a[field] < b[field]) {
-    // 				retval = -1;
-    // 			} 
-    // 		} else {
-    // 			if (a[field] > b[field]) {
-    // 				retval = -1;
-    // 			} else if (a[field] < b[field]) {
-    // 				retval = 1;
-    // 			}	
-    // 		}
-    // 		return retval;
-    // 	};
-    // 	return this.gridOptions.rowData.sort(sortFun); 
-    // }
-    sortDataFun(field, sortDir) {
-        let sortFun = (a, b) => {
+    setSortFun(fun = null) {
+        this.gridOptions.onSort = fun;
+        if (this.gridOptions.sortOnWebWorker) {
+            let sortFun = this.gridOptions.onSort ? this.gridOptions.onSort : this.sortDefaultFun;
+            let param = { message: 'setSortFunction', sortFunc: sortFun.toString() };
+            setTimeout(() => {
+                this.sortWebWorker.postMessage(param);
+            }, 10);
+        }
+    }
+    sortDefaultFun(params) {
+        let field = params.field;
+        let sortDir = params.sortingDir;
+        return (a, b) => {
             let retval = 0;
             if (sortDir === 'asc') {
                 if (a[field] > b[field]) {
@@ -459,7 +466,7 @@ export class Grid {
             }
             return retval;
         };
-        return sortFun;
+        // return sortFun; 
     }
     removeData(startRow = 0, endRow = 0) {
         if (startRow === 0 && endRow === 0) {
@@ -574,7 +581,10 @@ export class Grid {
     setEvents() {
         let currentLeft = 0;
         let headerContainerInner = this.headerContainerInnerCenter;
-        this.initSortWebWorker();
+        if (this.gridOptions.sortOnWebWorker) {
+            this.initSortWebWorker();
+        }
+        this.setSortFun();
         let onScrollEvent = function (event) {
             let scrollLeft = event.currentTarget.scrollLeft;
             // if ( currentLeft !== scrollLeft ) {
@@ -602,20 +612,37 @@ export class Grid {
                 else {
                     $(th).find('.' + SortClasses.SORT_DESC).show();
                 }
-                let sortFun = this.gridOptions.onSort ? this.gridOptions.onSort : this.sortDataFun;
-                let param = { rowData: this.gridOptions.rowData, field: columnDef.field, sortingDir, sortFunc: sortFun.toString() };
-                setTimeout(() => {
-                    this.sortWebWorker.postMessage(param);
-                    // this.sortWebWorker.postMessage({field: columnDef.field, sortingDir });
-                }, 10);
-                // let sortedData: any;
-                // if (this.gridOptions.onSort) {
-                // 	sortedData = this.gridOptions.onSort(columnDef.field,sortingDir);
-                // } else {
-                // 	sortedData = this.sortData(columnDef.field, sortingDir);
-                // }
-                // this.setDataRow( sortedData );
-                // console.info( 'sorting time elapse ', ( Date.now() - startTime ), 'ms' );
+                let param = { message: 'sort', rowData: this.gridOptions.rowData, field: columnDef.field, sortingDir };
+                if (this.gridOptions.sortOnWebWorker) {
+                    setTimeout(() => {
+                        this.sortWebWorker.postMessage(param);
+                    }, 10);
+                }
+                else {
+                    let sortedData, sortFun;
+                    if (this.gridOptions.onSort) {
+                        sortFun = this.gridOptions.onSort(param);
+                    }
+                    else {
+                        sortFun = this.sortDefaultFun(param);
+                    }
+                    (new Promise((resolve, reject) => {
+                        console.log('sorting data start');
+                        sortedData = this.gridOptions.rowData.sort(sortFun);
+                        console.log('sorting data done');
+                        resolve(sortedData);
+                    })).then((data) => {
+                        new Promise((resolve, reject) => {
+                            console.log('injecting new sorted data');
+                            this.setDataRow(data);
+                            resolve('ok');
+                        });
+                    }).then(() => {
+                        console.log('hideBusyIcon');
+                        this.hideBusyIcon();
+                    });
+                    // console.info( 'sorting time elapse ', ( Date.now() - startTime ), 'ms' );
+                }
             }
         };
         this.gridBody.addEventListener('click', this.onBodyClick.bind(this));
