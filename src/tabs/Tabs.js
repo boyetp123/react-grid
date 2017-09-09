@@ -39,7 +39,7 @@ export class Tabs extends React.Component {
     }
 
     _renderTitles () {
-        function labels(child, index) {
+        let labels = (child, index) => {
             var activeClass = (this.state.selected === index ? 'active' : '');
             return (
                 <li key={index}>

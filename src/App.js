@@ -30,20 +30,17 @@ class App extends Component {
        	<div>
          <Tabs selected={0}>
            <Pane label="Tab 1">
-             <div>This is my tab 1 contents!</div>
              <div>
                <Game />
             </div>
            </Pane>
            <Pane label="Tab 2">
-             <div>This is my tab 2 contents!</div>
              <div>
               <h3> Colors </h3>
               <ColorListTable/>
             </div>
            </Pane>
            <Pane label="Tab 3">
-             <div>This is my tab 3 contents!</div>
              <div>
               <h3> Grid 1 here </h3>
               <GridTest/>
