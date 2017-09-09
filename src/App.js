@@ -6,6 +6,7 @@ import { Game } from './tictactoe';
 import { ColorListTable } from './colors';
 // import { Grid } from './lib/mygrid';
 import { GridTest } from './grid';
+import { Tabs, Pane } from './tabs'
 
 class App extends Component {
 
@@ -24,17 +25,34 @@ class App extends Component {
         {/* <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p> */}
-        <div>
-           <Game />
-        </div>
-        <div>
-          <h3> Colors </h3>
-          <ColorListTable/>
-        </div>
-        <div>
-          <h3> Grid 1 here </h3>
-          <GridTest/>
-        </div>
+        <div> {/* tab start here */}
+
+       	<div>
+         <Tabs selected={0}>
+           <Pane label="Tab 1">
+             <div>This is my tab 1 contents!</div>
+             <div>
+               <Game />
+            </div>
+           </Pane>
+           <Pane label="Tab 2">
+             <div>This is my tab 2 contents!</div>
+             <div>
+              <h3> Colors </h3>
+              <ColorListTable/>
+            </div>
+           </Pane>
+           <Pane label="Tab 3">
+             <div>This is my tab 3 contents!</div>
+             <div>
+              <h3> Grid 1 here </h3>
+              <GridTest/>
+            </div>
+           </Pane>
+         </Tabs>
+       </div>
+       
+        </div> {/* tab stop here */}
 
       </div>
     );
