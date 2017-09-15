@@ -11,7 +11,7 @@ export class ColorTableBody extends Component {
 
   render() {
     let colorList = () => this.props.colorList.map((color, idx) => {
-      console.log('colorList', this.test);
+      // console.log('colorList', this.test);
       return (
             <tr key={idx}>
                 <td>{color.color}</td>
@@ -24,7 +24,7 @@ export class ColorTableBody extends Component {
       );
     });
       
-    console.log('ColorTableBody');
+    // console.log('ColorTableBody');
     return (
         <tbody>
            {colorList()}

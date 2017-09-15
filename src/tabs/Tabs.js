@@ -10,11 +10,19 @@ export class Tabs extends React.Component {
             React.PropTypes.element
         ]).isRequired
     }
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = { selected: 0};
     }
+    componentDidMount() {
+        console.log('Tabs componentDidMount');
+    // this.setState({colorList: Data.getColors() });
+    }
 
+    componentWillUnmount() {
+        console.log('Tabs componentWillUnmount');
+    }  
+    
     getDefaultProps () {
         return {
             selected: 0

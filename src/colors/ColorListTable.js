@@ -10,7 +10,7 @@ export class ColorListTable extends Component {
   }
   init() {
     this.state = {colorList: [] };
-    console.log('ColorListTable init', this.state.colorList );
+    // console.log('ColorListTable init', this.state.colorList );
   }
   componentDidMount() {
     console.log('componentDidMount');
