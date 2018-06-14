@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from '../lib/mygrid';
+import { RGrid } from '../lib/rgrid';
 
 export class GridTest extends Component {
     atheleteColumnDefs = [
@@ -45,18 +45,18 @@ export class GridTest extends Component {
     componentDidMount() {
         console.log('componentDidMount');
         // this.setState({colorList: Data.getColors() });
-        this.grid = new Grid('#grid-1',this.gridOptions);
+        this.grid = new RGrid('#grid-1',this.gridOptions);
         this.loadAthletes();
     }
     loadAthletes() {
         (new Promise( (resolve, reject) => {
             this.gridOptions.isGrouped = false;
             this.gridOptions.isDataAlreadyGrouped = false;
-            this.gridOptions.api.setColumnDefs(this.atheleteColumnDefs );
+            // this.gridOptions.api.setColumnDefs(this.atheleteColumnDefs );
             this.gridOptions.pinnedLeftCount = 1;
             resolve('definition-loded')
         })).then( result => {
-            this.gridOptions.api.showBusyIcon();
+            // this.gridOptions.api.showBusyIcon();
             if (result === 'definition-loded' ) {
                 return (new Promise( (resolve, reject) => {
                     fetch('/data/olympicAthletes.json')
@@ -72,8 +72,8 @@ export class GridTest extends Component {
         }).then( (result ) => {
             if (result) {
                 this.bigData = result.data;
-                this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
-                this.gridOptions.api.hideBusyIcon();
+                // this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
+                // this.gridOptions.api.hideBusyIcon();
             }
         })
         // fetch('/data/olympicAthletes.json')
@@ -88,8 +88,10 @@ export class GridTest extends Component {
     render() {
         return (
             <div>
-                Grid will be here
-                <div id="grid-1"></div>
+                rGrid will be here
+                <div id="grid-2">
+                    <RGrid/>
+                </div>
             </div>
         )
     }

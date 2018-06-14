@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ColorTableHdr } from './ColorTableHdr';
+import rgrid from '../lib/rgrid';
 import { ColorTableBody } from './ColorTableBody';
 import { Data } from '../Data'
 

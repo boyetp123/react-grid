@@ -6,6 +6,7 @@ import { Game } from './tictactoe';
 import { ColorListTable } from './colors';
 // import { Grid } from './lib/mygrid';
 import { GridTest } from './grid';
+import { GridTest as GridTest2} from './grid2';
 import { Tabs, Pane } from './tabs'
 
 class App extends Component {
@@ -44,6 +45,12 @@ class App extends Component {
              <div>
               <h3> Grid 1 here </h3>
               <GridTest/>
+            </div>
+           </Pane>
+           <Pane label="React Grid">
+             <div>
+              <h3> Grid 2 here </h3>
+              <GridTest2/>
             </div>
            </Pane>
          </Tabs>
