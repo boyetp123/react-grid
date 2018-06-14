@@ -1,14 +1,11 @@
 /*
     do sorting on the web workers
 */
-<<<<<<< HEAD
-=======
 /*
  import moment  from 'moment';
  import numeral from 'numeraljs';
  import $ from 'jquery';
 */
->>>>>>> 3861a3c171cc86caf71470b2f29c07e9308e2621
 // import {ColumnDef, GridOptions, SortClasses, DefaultFormats, rowObject, 
 // 		GridHdrClasses, HAlignmentClasses} from './mygridDefs';
 import { ColumnDef, SortClasses, GridHdrClasses, HAlignmentClasses } from './mygridDefs';
