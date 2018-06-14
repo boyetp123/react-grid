@@ -504,18 +504,12 @@ export class Grid {
                 // console.info('message past to start sorting', e.data );
                 let data = e.data;
                 let sortedData;
-<<<<<<< HEAD
-                if (data.message === 'sort') {
-                    sortFunc2 = sortFunc(e.data);
-                    // console.info('message past to start sorting', e.data, 'sortFunc2', sortFunc2 );
-=======
                 // let field: string = data.field;
                 // let sortingDir: string = data.sortingDir;
                 if (data.message === 'sort') {
                     // sortFunc2 = sortFunc(field, sortingDir);	
                     sortFunc2 = sortFunc(e.data);
                     console.info('message past to start sorting', e.data, 'sortFunc2', sortFunc2);
->>>>>>> 3861a3c171cc86caf71470b2f29c07e9308e2621
                     sortedData = data.rowData.sort(sortFunc2);
                     postMessage({ sortedData: sortedData });
                 }
@@ -720,11 +714,7 @@ export class Grid {
             this.initSortWebWorker();
         }
         this.setSortFun();
-<<<<<<< HEAD
         let onHorizontalScrollEvent = function (event) {
-=======
-        let onScrollEvent = function (event) {
->>>>>>> 3861a3c171cc86caf71470b2f29c07e9308e2621
             let scrollLeft = event.currentTarget.scrollLeft;
             currentLeft = scrollLeft;
             headerContainerInner.style.left = (scrollLeft * -1) + 'px';
@@ -784,14 +774,9 @@ export class Grid {
                         resolve(sortedData);
                     })).then((data) => {
                         new Promise((resolve, reject) => {
-<<<<<<< HEAD
                             console.log('start injecting new sorted data');
                             this.setDataRow(data);
                             console.log('done injecting new sorted data');
-=======
-                            console.log('injecting new sorted data');
-                            this.setDataRow(data);
->>>>>>> 3861a3c171cc86caf71470b2f29c07e9308e2621
                             resolve('ok');
                         });
                     }).then(() => {
