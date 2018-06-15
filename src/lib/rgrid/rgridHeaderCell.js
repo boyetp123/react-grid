@@ -4,9 +4,9 @@ export default class RGridHeaderCell extends Component {
 
     render() {
         return (
-            <td>
+            <th key={this.props.label}>
                 {this.props.label}
-            </td>
+            </th>
         );
     }
 }

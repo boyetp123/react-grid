@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 import  RGrid  from '../lib/rgrid/rgrid';
+import olympicAthletes from './olympicAthletes';
 
 export default class GridTest extends Component {
     atheleteColumnDefs = [
-        {headerName: 'Athlete', field: 'athlete', width: '100px', sortable:true, sort: 'desc'},
-        {headerName: 'Age', field: 'age', width: '90px' ,type:'number', sortable:true, format:'0'},
-        {headerName: 'Country', field: 'country', width: '120px', sortable:true},
-        {headerName: 'Year', field: 'year', width: '90px' ,type:'number', format:'0', sortable:true },
-        {headerName: 'Date', field: 'date', width: '110px', type:'text', sortable:true},
-        {headerName: 'Sport', field: 'sport', width: '200px'},
-        {headerName: 'Gold', field: 'gold', width: '100px', type:'number', format:'0,0.00'},
-        {headerName: 'Silver', field: 'silver', width: '100px', type:'number', format:'0,0.00'},
-        {headerName: 'Bronze', field: 'bronze', width: '100px', type:'number', format:'0,0.00'},
-        {headerName: 'Total', field: 'total', width: '100px', type:'number', format:'0,0.00'}
+        {label: 'Athlete', field: 'athlete', width: '100px', sortable:true, sort: 'desc'},
+        {label: 'Age', field: 'age', width: '90px' ,type:'number', sortable:true, format:'0'},
+        {label: 'Country', field: 'country', width: '120px', sortable:true},
+        {label: 'Year', field: 'year', width: '90px' ,type:'number', format:'0', sortable:true },
+        {label: 'Date', field: 'date', width: '110px', type:'text', sortable:true},
+        {label: 'Sport', field: 'sport', width: '200px'},
+        {label: 'Gold', field: 'gold', width: '100px', type:'number', format:'0,0.00'},
+        {label: 'Silver', field: 'silver', width: '100px', type:'number', format:'0,0.00'},
+        {label: 'Bronze', field: 'bronze', width: '100px', type:'number', format:'0,0.00'},
+        {label: 'Total', field: 'total', width: '100px', type:'number', format:'0,0.00'}
     ];
     filesColumnDefs = [
-        {headerName: 'Name', field: 'name', width: '105px', sortable:true, sort: 'desc'},
-        {headerName: 'Size', field: 'size', width: '90px' ,type:'number', sortable:true, format:'0'},
-        {headerName: 'Type', field: 'type', width: '120px'},
-        {headerName: 'Modified', field: 'dateModified', width: '90px' ,type:'text', format:'0' }
+        {label: 'Name', field: 'name', width: '105px', sortable:true, sort: 'desc'},
+        {label: 'Size', field: 'size', width: '90px' ,type:'number', sortable:true, format:'0'},
+        {label: 'Type', field: 'type', width: '120px'},
+        {label: 'Modified', field: 'dateModified', width: '90px' ,type:'text', format:'0' }
     ];
     gridOptions = {
-        columnDefs: [], // this.atheleteColumnDefs, 
-        rowData: [],
+        columnDefs: this.atheleteColumnDefs, 
+        rowData: olympicAthletes, //[],
         width:'800px',
         height:'400px',
         rowHeight:'40px',
@@ -33,7 +34,7 @@ export default class GridTest extends Component {
             // api.setDataRow( olympicAthletes );
         }
     };
-
+    athletesData=[];
     constructor(props){
         super(props);
         this.init();
@@ -71,7 +72,9 @@ export default class GridTest extends Component {
             }
         }).then( (result ) => {
             if (result) {
-                this.bigData = result.data;
+                // this.athletesData = result.data;
+                this.gridOptions.rowData = result.data;
+                this.render();
                 // this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
                 // this.gridOptions.api.hideBusyIcon();
             }
