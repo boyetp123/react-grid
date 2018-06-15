@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-// import { Data } from './Data'
 import { Game } from './tictactoe';
 import { ColorListTable } from './colors';
-// import { Grid } from './lib/mygrid';
 import { GridTest } from './grid';
-import { GridTest as GridTest2} from './grid2';
+import GridTest2 from './grid2/GridTest';
 import { Tabs, Pane } from './tabs'
 
 class App extends Component {

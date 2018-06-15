@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class RGridHeaderColumn extends Component {
+export default class RGridDataCell extends Component {
 
     render() {
         return (

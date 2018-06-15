@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { RGrid } from '../lib/rgrid';
+import  RGrid  from '../lib/rgrid/rgrid';
 
-export class GridTest extends Component {
+export default class GridTest extends Component {
     atheleteColumnDefs = [
         {headerName: 'Athlete', field: 'athlete', width: '100px', sortable:true, sort: 'desc'},
         {headerName: 'Age', field: 'age', width: '90px' ,type:'number', sortable:true, format:'0'},
@@ -90,7 +90,7 @@ export class GridTest extends Component {
             <div>
                 rGrid will be here
                 <div id="grid-2">
-                    <RGrid/>
+                    <RGrid gridOptions={this.gridOptions}/>
                 </div>
             </div>
         )
