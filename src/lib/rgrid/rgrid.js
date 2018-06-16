@@ -12,7 +12,7 @@ export default class RGrid extends Component {
         const colDefs = this.props.gridOptions.columnDefs;
         return (
             <tr key={idx}>
-                {colDefs.map(column=><RGridDataCell data={row[column.field]}/>)}
+                {colDefs.map(column=><RGridDataCell colDef={column} dataRow={row}/>)}
             </tr>
         );
     }
@@ -121,25 +121,27 @@ export default class RGrid extends Component {
         const colDefs = this.props.gridOptions.columnDefs;
         return (
             <tr>
-                {colDefs.map( (columns, idx)=><RGridHeaderCell key={idx} label={columns.label}/>)}
+                {colDefs.map( (columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns.label}/>)}
             </tr>
         );
     }    
     renderLeftHeader() {
-        const arr = ['Left Col1', 'Left Col4', 'Left Col3']
-        return (
-            <tr>
-                {arr.map((columns, idx)=><RGridHeaderCell key={idx} label={columns}/>)}
-            </tr>
-        );
+        const colDefs = this.props.gridOptions.columnDefs;
+        // return (
+        //     <tr>
+        //         {arr.map((columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns}/>)}
+        //     </tr>
+        // );
+        return null;
     }
     renderRightHeader() {
-        const arr = ['Right Col1', 'Right Col4', 'Right Col3']
-        return (
-            <tr>
-                {arr.map((columns, idx)=><RGridHeaderCell key={idx} label={columns}/>)}
-                </tr>
-        );
+        const colDefs = this.props.gridOptions.columnDefs;
+        // return (
+        //     <tr>
+        //         {arr.map((columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns}/>)}
+        //     </tr>
+        // );
+        return null;
     }
     render() {
         console.info('props', this.props.gridOptions)
