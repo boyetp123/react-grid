@@ -10,9 +10,10 @@ export default class RGrid extends Component {
     renderBodyRow(row, idx) {
         console.info('renderBodyRow', idx)
         const colDefs = this.props.gridOptions.columnDefs;
+        const presenter = this.props.gridOptions.dataPresenter || RGridDataCell;
         return (
             <tr key={idx}>
-                {colDefs.map(column=><RGridDataCell colDef={column} dataRow={row}/>)}
+                {colDefs.map(column=><presenter colDef={column} dataRow={row}/>)}
             </tr>
         );
     }

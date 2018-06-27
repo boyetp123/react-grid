@@ -23,7 +23,7 @@ export default class GridTest extends Component {
     ];
     gridOptions = {
         columnDefs: this.atheleteColumnDefs, 
-        rowData: olympicAthletes, //[],
+        rowData: [], // olympicAthletes
         width:'800px',
         height:'400px',
         rowHeight:'40px',
@@ -41,7 +41,7 @@ export default class GridTest extends Component {
     }
 
     init() {
-        this.state = {gridData: [] };
+        this.state = {gridOptions:this.gridOptions};
     }
     componentDidMount() {
         console.log('componentDidMount');
@@ -74,6 +74,7 @@ export default class GridTest extends Component {
             if (result) {
                 // this.athletesData = result.data;
                 this.gridOptions.rowData = result.data;
+                this.setState({gridOptions:this.gridOptions})
                 this.render();
                 // this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
                 // this.gridOptions.api.hideBusyIcon();
