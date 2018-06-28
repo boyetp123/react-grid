@@ -73,8 +73,8 @@ export default class GridTest extends Component {
         }).then( (result ) => {
             if (result) {
                 // this.athletesData = result.data;
-                // this.gridOptions.rowData = result.data;
-                // this.setState({gridOptions:this.gridOptions})
+                this.gridOptions.rowData = result.data.slice(0,50);
+                this.setState({gridOptions:this.gridOptions})
                 this.render();
                 // this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
                 // this.gridOptions.api.hideBusyIcon();
