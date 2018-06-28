@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+    selected: PropTypes.number,
+    children: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.element
+    ]).isRequired
+}
 
 export class Tabs extends React.Component {
     displayName = 'Tabs';
 
-	propTypes = {
-        selected: React.PropTypes.number,
-        children: React.PropTypes.oneOfType([
-            React.PropTypes.array,
-            React.PropTypes.element
-        ]).isRequired
-    }
+
     constructor(props, context) {
         super(props, context);
         this.state = { selected: 0};
+        
     }
     componentDidMount() {
         console.log('Tabs componentDidMount');

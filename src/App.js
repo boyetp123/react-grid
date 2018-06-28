@@ -7,13 +7,19 @@ import { GridTest } from './grid';
 import GridTest2 from './grid2/GridTest';
 import { Tabs, Pane } from './tabs'
 
+import { render } from 'react-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import ReduxApp from './redux/components/App'
+import rootReducer from './redux/reducers'
+
 class App extends Component {
 
   // eslint-disable-next-line
-  // constructor() {
-  //   super();
-  //   // console.log('Data', Data.getColors() );
-  // }
+  constructor() {
+    super();
+    this.store = createStore(rootReducer);
+  }
   render() {
     return (
       <div className="App">
@@ -51,6 +57,15 @@ class App extends Component {
               <GridTest2/>
             </div>
            </Pane>
+           <Pane label="Redux">
+             <div>
+              <h3> Redux here </h3>
+              <Provider store={this.store}>
+                <ReduxApp />
+              </Provider>
+            </div>
+           </Pane>
+           
          </Tabs>
        </div>
        

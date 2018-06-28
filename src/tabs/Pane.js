@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class Pane extends Component {
   displayName = 'Pane';
 
   propTypes = {
-    label: React.PropTypes.string.isRequired,
-    children: React.PropTypes.element.isRequired
+    label: PropTypes.string.isRequired,
+    children: PropTypes.element.isRequired
   }
 
   componentDidMount() {

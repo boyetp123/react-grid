@@ -18,7 +18,7 @@ export default class RGrid extends Component {
         );
     }
     renderBody() {
-        console.info('renderBody')
+        // console.info('renderBody')
         return (
             <div className="mygrid-scroll-container-body">
                 <table>
