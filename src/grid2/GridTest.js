@@ -23,7 +23,7 @@ export default class GridTest extends Component {
     ];
     gridOptions = {
         columnDefs: this.atheleteColumnDefs, 
-        rowData: [], // olympicAthletes
+        rowData:  olympicAthletes.slice(0,200),
         width:'800px',
         height:'400px',
         rowHeight:'40px',

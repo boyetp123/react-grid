@@ -6,7 +6,6 @@ import { ColorListTable } from './colors';
 import { GridTest } from './grid';
 import GridTest2 from './grid2/GridTest';
 import { Tabs, Pane } from './tabs'
-
 import { render } from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'

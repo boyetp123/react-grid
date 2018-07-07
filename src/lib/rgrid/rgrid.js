@@ -7,14 +7,31 @@ import RGridDataCell from './rgridDataCell';
 // import $ from 'jquery';
 
 export default class RGrid extends Component {
-    renderBodyRow(row, idx) {
-        console.info('renderBodyRow', idx)
-        const colDefs = this.props.gridOptions.columnDefs;
-        const presenter = this.props.gridOptions.dataPresenter || RGridDataCell;
+    constructor(props) {
+        super(props);
+        this.defaultBodyCellPresenter = RGridDataCell;
+    }
+    renderBodyRow( colDefs ) {
+        if (!colDefs) return null;
+
+        let Presenter = this.props.gridOptions.dataPresenter || this.defaultBodyCellPresenter;
+        console.info('renderBodyRow', Presenter)
         return (
-            <tr key={idx}>
-                {colDefs.map(column=><presenter colDef={column} dataRow={row}/>)}
-            </tr>
+            <div className="mygrid-body">
+                <div className="mygrid-body-y-scroll">
+                    <table>
+                        <tbody>
+                            {this.props.gridOptions.rowData.map((row, idx)=>{
+                                return (
+                                    <tr key={idx}>
+                                        {colDefs.map( (column, cIdx)=><Presenter key={idx +'-'+cIdx } colDef={column} dataRow={row}/>)}
+                                    </tr>            
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         );
     }
     renderBody() {
@@ -26,39 +43,17 @@ export default class RGrid extends Component {
                         <tr>
                         <td className="left-pane" style={{display:"none"}}>
                             <div className="mygrid-left">
-                                <div className="mygrid-body">
-                                    <div className="mygrid-body-y-scroll">
-                                    <table>
-                                        <tbody></tbody>
-                                    </table>
-                                    </div>
-                                </div>
+                                {this.renderBodyRow( null )}
                             </div>
                         </td>
                         <td className="center-pane">
                             <div className="mygrid-center">
-                                <div className="mygrid-body">
-                                    <div className="mygrid-body-y-scroll">
-                                    <table>
-                                        <tbody>
-                                            {this.props.gridOptions.rowData.map((row, idx)=>{
-                                                return this.renderBodyRow(row, idx);
-                                            })}
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
+                                {this.renderBodyRow(this.props.gridOptions.columnDefs)}
                             </div>
                         </td>
                         <td className="right-pane" style={{display:"none"}}>
                             <div className="mygrid-right">
-                                <div className="mygrid-body">
-                                    <div className="mygrid-body-y-scroll">
-                                    <table>
-                                        <tbody></tbody>
-                                    </table>
-                                    </div>
-                                </div>
+                                {this.renderBodyRow( null )}
                             </div>
                         </td>
                         </tr>
@@ -66,6 +61,25 @@ export default class RGrid extends Component {
                 </table>
             </div>
         );
+    }
+    renderHeaderColumns(colDefs) {
+        if (colDefs) {
+            return (
+                <div className="mygrid-header">
+                    <div className="mygrid-header-inner">
+                    <table>
+                        <thead>
+                        <tr>
+                            {colDefs.map( (columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns.label}/>)}
+                        </tr>
+                        </thead>
+                    </table>
+                    </div>
+                </div>
+            );    
+        } else {
+            return null;
+        } 
     }
     renderHeader() {
         return (
@@ -75,41 +89,17 @@ export default class RGrid extends Component {
                         <tr>
                             <td className="left-pane" style={{display:"none"}}>
                                 <div className="mygrid-left">
-                                    <div className="mygrid-header">
-                                        <div className="mygrid-header-inner">
-                                        <table>
-                                            <thead>
-                                                {this.renderLeftHeader()}
-                                            </thead>
-                                        </table>
-                                        </div>
-                                    </div>
+                                    {this.renderHeaderColumns(null)}
                                 </div>
                             </td>
                             <td className="center-pane">
                                 <div className="mygrid-center">
-                                    <div className="mygrid-header">
-                                        <div className="mygrid-header-inner">
-                                        <table>
-                                            <thead>
-                                                {this.renderCenterHeader()}
-                                            </thead>
-                                        </table>
-                                        </div>
-                                    </div>
+                                    {this.renderHeaderColumns(this.props.gridOptions.columnDefs)}
                                 </div>
                             </td>
                             <td className="right-pane" style={{display:"none"}}>
                                 <div className="mygrid-right">
-                                    <div className="mygrid-header">
-                                        <div className="mygrid-header-inner">
-                                        <table>
-                                            <thead>
-                                                {this.renderRightHeader()}
-                                            </thead>
-                                        </table>
-                                        </div>
-                                    </div>
+                                    {this.renderHeaderColumns(null)}
                                 </div>
                             </td>
                         </tr>
@@ -117,32 +107,6 @@ export default class RGrid extends Component {
                 </table>
             </div>
         );
-    }
-    renderCenterHeader() {
-        const colDefs = this.props.gridOptions.columnDefs;
-        return (
-            <tr>
-                {colDefs.map( (columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns.label}/>)}
-            </tr>
-        );
-    }    
-    renderLeftHeader() {
-        const colDefs = this.props.gridOptions.columnDefs;
-        // return (
-        //     <tr>
-        //         {arr.map((columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns}/>)}
-        //     </tr>
-        // );
-        return null;
-    }
-    renderRightHeader() {
-        const colDefs = this.props.gridOptions.columnDefs;
-        // return (
-        //     <tr>
-        //         {arr.map((columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns}/>)}
-        //     </tr>
-        // );
-        return null;
     }
     render() {
         console.info('props', this.props.gridOptions)
