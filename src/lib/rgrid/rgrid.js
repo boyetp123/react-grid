@@ -63,23 +63,21 @@ export default class RGrid extends Component {
         );
     }
     renderHeaderColumns(colDefs) {
-        if (colDefs) {
-            return (
-                <div className="mygrid-header">
-                    <div className="mygrid-header-inner">
-                    <table>
-                        <thead>
-                        <tr>
-                            {colDefs.map( (columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns.label}/>)}
-                        </tr>
-                        </thead>
-                    </table>
-                    </div>
+        if (!colDefs) return null;
+
+        return (
+            <div className="mygrid-header">
+                <div className="mygrid-header-inner">
+                <table>
+                    <thead>
+                    <tr>
+                        {colDefs.map( (columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns.label}/>)}
+                    </tr>
+                    </thead>
+                </table>
                 </div>
-            );    
-        } else {
-            return null;
-        } 
+            </div>
+        );    
     }
     renderHeader() {
         return (
