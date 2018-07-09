@@ -15,8 +15,44 @@ export default class RGrid extends Component {
         this.centerBodyUid = _.uniqueId('cbody-');
         this.leftBodyUid = _.uniqueId('lbody-');
         this.rightBodyUid = _.uniqueId('rbodybody-');
+        this.showBusyIcon.bind(this),
+        this.hideBusyIcon.bind(this),
+
         this.state = {gridData:[]};
     }
+    showBusyIcon() {
+/*
+        // console.info('showBusyIcon')
+        // setTimeout( ()=> {
+        if (!this.busyLoader) {
+            this.busyLoader = document.createElement('DIV');
+            this.busyLoader.className = "loading-animator";
+            this.theGrid.appendChild(this.busyLoader);
+        }
+        this.showElement(this.busyLoader);
+        // }, 0);
+*/
+    }
+    hideBusyIcon() {
+        /*
+        // console.info('hideBusyIcon')
+        setTimeout(() => {
+            this.hideElement(this.busyLoader);
+        }, 10);
+*/
+    }
+
+    showElement(el) {
+        if (el) {
+            el.style.display = '';
+        }
+    }
+    hideElement(el) {
+        if (el) {
+            el.style.display = 'none';
+        }
+    }
+
     // renderBodyRow( colDefs ) {
     //     if (!colDefs || !this.props.gridOptions.rowData) return null;
 

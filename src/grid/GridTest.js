@@ -72,7 +72,8 @@ export class GridTest extends Component {
         }).then( (result ) => {
             if (result) {
                 this.bigData = result.data;
-                this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
+                // this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
+                this.gridOptions.api.setDataRow(result.data );
                 this.gridOptions.api.hideBusyIcon();
             }
         })
