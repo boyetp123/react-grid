@@ -41,12 +41,12 @@ export default class GridTest extends Component {
     }
 
     init() {
-        this.state = {gridOptions:this.gridOptions};
+        // this.state = {gridOptions:this.gridOptions};
     }
     componentDidMount() {
         console.log('componentDidMount');
         // this.setState({colorList: Data.getColors() });
-        this.grid = new RGrid('#grid-1',this.gridOptions);
+        // this.grid = new RGrid('#grid-1',this.gridOptions);
         this.loadAthletes();
     }
     loadAthletes() {
@@ -79,7 +79,7 @@ export default class GridTest extends Component {
             if (result) {
                 // this.athletesData = result.data;
                 const rowData = result.data.slice(0,50);
-                this.setState({gridOptions:this.gridOptions});
+                // this.setState({gridOptions:this.gridOptions});
                 // console.log('after I got data', this.grid);
                 this.grid.setData(rowData)
                 // this.render();
