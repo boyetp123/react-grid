@@ -12,21 +12,47 @@ export default class RGrid extends Component {
     constructor(props) {
         super(props);
         this.defaultBodyCellPresenter = RGridDataCell;
-        this.centerBodyUid = _.uniqueId('cbody-')
-        this.leftBodyUid = _.uniqueId('lbody-')
-        this.rightBodyUid = _.uniqueId('rbodybody-')
+        this.centerBodyUid = _.uniqueId('cbody-');
+        this.leftBodyUid = _.uniqueId('lbody-');
+        this.rightBodyUid = _.uniqueId('rbodybody-');
+        this.state = {gridData:[]};
     }
+    // renderBodyRow( colDefs ) {
+    //     if (!colDefs || !this.props.gridOptions.rowData) return null;
+
+    //     let Presenter = this.props.gridOptions.dataPresenter || this.defaultBodyCellPresenter;
+    //     console.info('renderBodyRow', Presenter)
+    //     return (
+    //         <div className="mygrid-body">
+    //             <div className="mygrid-body-y-scroll">
+    //                 <table>
+    //                     <tbody>
+    //                         {this.props.gridOptions.rowData.map((row, idx)=>{
+    //                             return (
+    //                                 <tr key={idx}>
+    //                                     {colDefs.map( (column, cIdx)=><Presenter key={idx +'-'+cIdx } colDef={column} dataRow={row}/>)}
+    //                                 </tr>            
+    //                             );
+    //                         })}
+    //                     </tbody>
+    //                 </table>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+
     renderBodyRow( colDefs ) {
-        if (!colDefs || !this.props.gridOptions.rowData) return null;
+        if (!colDefs ) return null;
 
         let Presenter = this.props.gridOptions.dataPresenter || this.defaultBodyCellPresenter;
+        
         console.info('renderBodyRow', Presenter)
         return (
             <div className="mygrid-body">
                 <div className="mygrid-body-y-scroll">
                     <table>
                         <tbody>
-                            {this.props.gridOptions.rowData.map((row, idx)=>{
+                            {this.state.gridData.map((row, idx)=>{
                                 return (
                                     <tr key={idx}>
                                         {colDefs.map( (column, cIdx)=><Presenter key={idx +'-'+cIdx } colDef={column} dataRow={row}/>)}
@@ -38,7 +64,7 @@ export default class RGrid extends Component {
                 </div>
             </div>
         );
-    }
+    }    
     renderBody() {
         // console.info('renderBody')
         return (
@@ -111,6 +137,7 @@ export default class RGrid extends Component {
             </div>
         );
     }
+    // eslint-disable-next-line
     render() {
         console.info('props', this.props.gridOptions)
         return  (
@@ -134,11 +161,11 @@ export default class RGrid extends Component {
     }
 
     setData(data) {
-        this.props.gridOptions.rowData = data;
-        ReactDOM.render(this.renderBodyRow(this.props.gridOptions.columnDefs),
-            document.getElementById(this.centerBodyUid)
-        )
-        ;
+        this.setState({gridData: data});
+        // this.props.gridOptions.rowData = data;
+        // ReactDOM.render(this.renderBodyRow(this.props.gridOptions.columnDefs),
+        //     document.getElementById(this.centerBodyUid)
+        // );
     }
 
 }
