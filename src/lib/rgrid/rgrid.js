@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, ReactDOM } from 'react';
 import RGridHeaderCell from './rgridHeaderCell';
 import RGridDataCell from './rgridDataCell';
 // import { ColumnDef, SortClasses, GridHdrClasses, HAlignmentClasses } from './rgridDefs';
@@ -12,7 +12,7 @@ export default class RGrid extends Component {
         this.defaultBodyCellPresenter = RGridDataCell;
     }
     renderBodyRow( colDefs ) {
-        if (!colDefs) return null;
+        if (!colDefs || !this.props.gridOptions.rowData) return null;
 
         let Presenter = this.props.gridOptions.dataPresenter || this.defaultBodyCellPresenter;
         console.info('renderBodyRow', Presenter)
@@ -127,4 +127,10 @@ export default class RGrid extends Component {
         </div>             
         );
     }
+
+    setData(data) {
+        this.props.gridOptions.rowData = data;
+        this.renderBodyRow(this.props.gridOptions.columnDefs);
+    }
+
 }

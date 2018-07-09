@@ -23,7 +23,7 @@ export default class GridTest extends Component {
     ];
     gridOptions = {
         columnDefs: this.atheleteColumnDefs, 
-        rowData:  olympicAthletes.slice(0,200),
+        rowData: null, // [], // olympicAthletes.slice(0,200),
         width:'800px',
         height:'400px',
         rowHeight:'40px',
@@ -50,19 +50,23 @@ export default class GridTest extends Component {
         this.loadAthletes();
     }
     loadAthletes() {
+        // console.log('loadAthletes')
         (new Promise( (resolve, reject) => {
             this.gridOptions.isGrouped = false;
             this.gridOptions.isDataAlreadyGrouped = false;
             // this.gridOptions.api.setColumnDefs(this.atheleteColumnDefs );
+           // console.log('loadAthletes 1')
             this.gridOptions.pinnedLeftCount = 1;
             resolve('definition-loded')
         })).then( result => {
             // this.gridOptions.api.showBusyIcon();
+            // console.log('loadAthletes 2', result)
             if (result === 'definition-loded' ) {
                 return (new Promise( (resolve, reject) => {
                     fetch('/data/olympicAthletes.json')
                     .then(response => response.json())
                     .then(data => {
+                        console.log('loadAthletes 2.5', data)
                         resolve(data);
                     }).catch(err => {
                         console.error('fail',err);
@@ -71,11 +75,14 @@ export default class GridTest extends Component {
                 }));
             }
         }).then( (result ) => {
+            // console.log('loadAthletes 3', result)
             if (result) {
                 // this.athletesData = result.data;
-                this.gridOptions.rowData = result.data.slice(0,50);
-                this.setState({gridOptions:this.gridOptions})
-                this.render();
+                const rowData = result.data.slice(0,50);
+                this.setState({gridOptions:this.gridOptions});
+                // console.log('after I got data', this.grid);
+                this.grid.setData(rowData)
+                // this.render();
                 // this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
                 // this.gridOptions.api.hideBusyIcon();
             }
@@ -94,7 +101,7 @@ export default class GridTest extends Component {
             <div>
                 rGrid will be here
                 <div id="grid-2">
-                    <RGrid gridOptions={this.gridOptions}/>
+                    <RGrid ref={(grid)=>{this.grid=grid}} gridOptions={this.gridOptions}/>
                 </div>
             </div>
         )
