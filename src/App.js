@@ -11,6 +11,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import ReduxApp from './redux/components/App'
 import rootReducer from './redux/reducers'
+import ReactTable from "react-table";
 
 class App extends Component {
 

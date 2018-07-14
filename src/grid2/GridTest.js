@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import  RGrid  from '../lib/rgrid/rgrid';
-import olympicAthletes from './olympicAthletes';
 
 export default class GridTest extends Component {
     atheleteColumnDefs = [
@@ -74,17 +73,10 @@ export default class GridTest extends Component {
                     });
                 }));
             }
-        }).then( (result ) => {
-            // console.log('loadAthletes 3', result)
+        }).then( result  => {
             if (result) {
-                // this.athletesData = result.data;
-                const rowData = result.data.slice(0,50);
-                // this.setState({gridOptions:this.gridOptions});
-                // console.log('after I got data', this.grid);
+                const rowData = result.data.slice(0,1000);
                 this.grid.setData(rowData)
-                // this.render();
-                // this.gridOptions.api.setDataRow(result.data.slice(0,1000) );
-                // this.gridOptions.api.hideBusyIcon();
             }
         })
         // fetch('/data/olympicAthletes.json')
