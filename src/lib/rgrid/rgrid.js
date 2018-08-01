@@ -54,22 +54,19 @@ export default class RGrid extends Component {
         return retVal;
     }
     renderGridMain() {
-        console.info('renderGridMain')
+        
         const gridContainers = [
             {columnsDef:null, sectionName:'left', key: 1},
             {columnsDef:this.props.gridOptions.columnDefs, sectionName:'center', key: 2},
             {columnsDef:null, sectionName:'right', key: 3}
         ]
-        // console.info('renderBody')
+        
         return (
             <div className="rgrid-scroll-container-body">
                 <table>
                     <tbody>
                         <tr>
-                            { gridContainers.map(container=>{
-                                return this.renderGrid(container)
-                              }) 
-                            }
+                            { gridContainers.map(container=>this.renderGrid(container)) }
                         </tr>
                     </tbody>
                 </table>
@@ -84,9 +81,9 @@ export default class RGrid extends Component {
                 <div className="rgrid-header-inner">
                 <table>
                     <thead>
-                    <tr>
-                        {colDefs.map( (columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns.label}/>)}
-                    </tr>
+                        <tr>
+                            {colDefs.map( (columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns.label}/>)}
+                        </tr>
                     </thead>
                 </table>
                 </div>
