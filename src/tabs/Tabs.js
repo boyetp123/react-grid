@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const propTypes = {
-    selected: PropTypes.number,
-    children: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.element
-    ]).isRequired
-}
 
 export class Tabs extends React.Component {
     displayName = 'Tabs';
 
+    static propTypes = {
+        selected: PropTypes.number,
+        children: PropTypes.oneOfType([
+            PropTypes.array,
+            PropTypes.element
+        ]).isRequired
+    }
+        
+    static defaultProps = {
+       selected: 0
+    };
 
     constructor(props, context) {
         super(props, context);
@@ -27,11 +31,6 @@ export class Tabs extends React.Component {
         console.log('Tabs componentWillUnmount');
     }  
     
-    getDefaultProps () {
-        return {
-            selected: 0
-        };
-    }
 
     getInitialState () {
         return {

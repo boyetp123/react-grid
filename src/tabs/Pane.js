@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export class Pane extends Component {
   displayName = 'Pane';
 
-  propTypes = {
+  static propTypes = {
     label: PropTypes.string.isRequired,
     children: PropTypes.element.isRequired
   }

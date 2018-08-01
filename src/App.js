@@ -5,13 +5,14 @@ import { Game } from './tictactoe';
 import { ColorListTable } from './colors';
 import { GridTest } from './grid';
 import GridTest2 from './grid2/GridTest';
+import GridTest3 from './grid3/GridTest3';
 import { Tabs, Pane } from './tabs'
 import { render } from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import ReduxApp from './redux/components/App'
 import rootReducer from './redux/reducers'
-import ReactTable from "react-table";
+// import ReactTable from "react-table";
 
 class App extends Component {
 
@@ -65,7 +66,13 @@ class App extends Component {
               </Provider>
             </div>
            </Pane>
-           
+           <Pane label="React Table">
+           <div>
+            <h3> React-Table here </h3>
+            <GridTest3/>
+          </div>
+         </Pane>
+         
          </Tabs>
        </div>
        

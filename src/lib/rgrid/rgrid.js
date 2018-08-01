@@ -17,39 +17,14 @@ export default class RGrid extends Component {
         this.rightBodyUid = _.uniqueId('rbodybody-');
         this.state = {gridData:[]};
     }
-    // renderBodyRow( colDefs ) {
-    //     if (!colDefs || !this.props.gridOptions.rowData) return null;
-
-    //     let Presenter = this.props.gridOptions.dataPresenter || this.defaultBodyCellPresenter;
-    //     console.info('renderBodyRow', Presenter)
-    //     return (
-    //         <div className="mygrid-body">
-    //             <div className="mygrid-body-y-scroll">
-    //                 <table>
-    //                     <tbody>
-    //                         {this.props.gridOptions.rowData.map((row, idx)=>{
-    //                             return (
-    //                                 <tr key={idx}>
-    //                                     {colDefs.map( (column, cIdx)=><Presenter key={idx +'-'+cIdx } colDef={column} dataRow={row}/>)}
-    //                                 </tr>            
-    //                             );
-    //                         })}
-    //                     </tbody>
-    //                 </table>
-    //             </div>
-    //         </div>
-    //     );
-    // }
-
     renderBodyRow( colDefs ) {
         if (!colDefs ) return null;
 
         let Presenter = this.props.gridOptions.dataPresenter || this.defaultBodyCellPresenter;
         
-        console.info('renderBodyRow', Presenter)
         return (
-            <div className="mygrid-body">
-                <div className="mygrid-body-y-scroll">
+            <div className="rgrid-body">
+                <div className="rgrid-body-y-scroll">
                     <table>
                         <tbody>
                             {this.state.gridData.map((row, idx)=>{
@@ -64,29 +39,37 @@ export default class RGrid extends Component {
                 </div>
             </div>
         );
-    }    
-    renderBody() {
+    }
+    renderGrid(definition) {
+        let retVal = (
+            <td key={definition.key} className={definition.sectionName + "-pane"} >
+                <div className={"rgrid-" + definition.sectionName}>
+                    {this.renderHeaderColumns(definition.columnsDef)}
+                </div>                    
+                <div className={"rgrid-" + definition.sectionName} id={this.centerBodyUid}>
+                    {this.renderBodyRow(definition.columnsDef)}
+                </div>
+            </td>
+        )
+        return retVal;
+    }
+    renderGridMain() {
+        console.info('renderGridMain')
+        const gridContainers = [
+            {columnsDef:null, sectionName:'left', key: 1},
+            {columnsDef:this.props.gridOptions.columnDefs, sectionName:'center', key: 2},
+            {columnsDef:null, sectionName:'right', key: 3}
+        ]
         // console.info('renderBody')
         return (
-            <div className="mygrid-scroll-container-body">
+            <div className="rgrid-scroll-container-body">
                 <table>
                     <tbody>
                         <tr>
-                        <td className="left-pane" style={{display:"none"}}>
-                            <div className="mygrid-left" id={this.leftBodyUid}>
-                                {this.renderBodyRow( null )}
-                            </div>
-                        </td>
-                        <td className="center-pane">
-                            <div className="mygrid-center" id={this.centerBodyUid}>
-                                {this.renderBodyRow(this.props.gridOptions.columnDefs)}
-                            </div>
-                        </td>
-                        <td className="right-pane" style={{display:"none"}}>
-                            <div className="mygrid-right" id={this.rightBodyUid}>
-                                {this.renderBodyRow( null )}
-                            </div>
-                        </td>
+                            { gridContainers.map(container=>{
+                                return this.renderGrid(container)
+                              }) 
+                            }
                         </tr>
                     </tbody>
                 </table>
@@ -97,8 +80,8 @@ export default class RGrid extends Component {
         if (!colDefs) return null;
 
         return (
-            <div className="mygrid-header">
-                <div className="mygrid-header-inner">
+            <div className="rgrid-header">
+                <div className="rgrid-header-inner">
                 <table>
                     <thead>
                     <tr>
@@ -110,53 +93,25 @@ export default class RGrid extends Component {
             </div>
         );    
     }
-    renderHeader() {
-        return (
-            <div className="mygrid-header">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td className="left-pane" style={{display:"none"}}>
-                                <div className="mygrid-left">
-                                    {this.renderHeaderColumns(null)}
-                                </div>
-                            </td>
-                            <td className="center-pane">
-                                <div className="mygrid-center">
-                                    {this.renderHeaderColumns(this.props.gridOptions.columnDefs)}
-                                </div>
-                            </td>
-                            <td className="right-pane" style={{display:"none"}}>
-                                <div className="mygrid-right">
-                                    {this.renderHeaderColumns(null)}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        );
-    }
+
     // eslint-disable-next-line
     render() {
-        console.info('props', this.props.gridOptions)
         return  (
-            <div className="mygrid"> 
-                {this.renderHeader()}
-                {this.renderBody()}
+            <div className="rgrid"> 
+                {this.renderGridMain()}
 
-                <div className="mygrid-hscrollbar-container">
-                    <div className="mygrid-hscrollbar-container-left">
+                <div className="rgrid-hscrollbar-container">
+                    <div className="rgrid-hscrollbar-container-left">
                         <div className="scroll-content">&nbsp;</div>
                     </div>
-                    <div className="mygrid-hscrollbar-container-center">
+                    <div className="rgrid-hscrollbar-container-center">
                         <div className="scroll-content">&nbsp;</div>
                     </div>
-                    <div className="mygrid-hscrollbar-container-right">
+                    <div className="rgrid-hscrollbar-container-right">
                         <div className="scroll-content">&nbsp;</div>
                     </div>
                 </div>
-        </div>             
+        </div>
         );
     }
 
