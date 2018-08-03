@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
-import RGridDataCell from './rgridDataCell';
 import HeaderColumnsContainer from './rgridHeaderColumnsContainer'
 import ScrollContainerBody from './rgridScrolContainerBody'
 import _ from 'lodash';
+import RGridBodyRow from './rgridBodyRow';
 // import { ColumnDef, SortClasses, GridHdrClasses, HAlignmentClasses } from './rgridDefs';
 // import moment  from 'moment';
 // import numeral from 'numeraljs';
@@ -12,35 +12,12 @@ import _ from 'lodash';
 export default class RGrid extends Component {
     constructor(props) {
         super(props);
-        this.defaultBodyCellPresenter = RGridDataCell;
         this.centerBodyUid = _.uniqueId('cbody-');
         this.leftBodyUid = _.uniqueId('lbody-');
         this.rightBodyUid = _.uniqueId('rbodybody-');
         this.state = {gridData:[]};
     }
-    renderBodyRow( colDefs ) {
-        if (!colDefs ) return null;
 
-        let Presenter = this.props.gridOptions.dataPresenter || this.defaultBodyCellPresenter;
-        
-        return (
-            <div className="rgrid-body">
-                <div className="rgrid-body-y-scroll">
-                    <table>
-                        <tbody>
-                            {this.state.gridData.map((row, idx)=>{
-                                return (
-                                    <tr key={idx}>
-                                        {colDefs.map( (column, cIdx)=><Presenter key={idx +'-'+cIdx } colDef={column} dataRow={row}/>)}
-                                    </tr>            
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        );
-    }
     renderGrid(definition) {
         let retVal = (
             <td key={definition.key} className={definition.sectionName + "-pane"} >
@@ -48,7 +25,7 @@ export default class RGrid extends Component {
                     <HeaderColumnsContainer colDefs={definition.columnsDef} />
                 </div>                    
                 <div className={"rgrid-" + definition.sectionName} id={this.centerBodyUid}>
-                    {this.renderBodyRow(definition.columnsDef)}
+                    <RGridBodyRow dataPresenter={null} colDefs={definition.columnsDef} gridData={this.state.gridData}/>
                 </div>
             </td>
         )
