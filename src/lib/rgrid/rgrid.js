@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
-import RGridHeaderCell from './rgridHeaderCell';
 import RGridDataCell from './rgridDataCell';
+import HeaderColumnsContainer from './rgridHeaderColumnsContainer'
+import ScrollContainerBody from './rgridScrolContainerBody'
 import _ from 'lodash';
 // import { ColumnDef, SortClasses, GridHdrClasses, HAlignmentClasses } from './rgridDefs';
 // import moment  from 'moment';
@@ -44,7 +45,7 @@ export default class RGrid extends Component {
         let retVal = (
             <td key={definition.key} className={definition.sectionName + "-pane"} >
                 <div className={"rgrid-" + definition.sectionName}>
-                    {this.renderHeaderColumns(definition.columnsDef)}
+                    <HeaderColumnsContainer colDefs={definition.columnsDef} />
                 </div>                    
                 <div className={"rgrid-" + definition.sectionName} id={this.centerBodyUid}>
                     {this.renderBodyRow(definition.columnsDef)}
@@ -60,6 +61,8 @@ export default class RGrid extends Component {
             {columnsDef:this.props.gridOptions.columnDefs, sectionName:'center', key: 2},
             {columnsDef:null, sectionName:'right', key: 3}
         ]
+
+        // return <ScrollContainerBody gridOptions={this.props.gridOptions} gridContainers={gridContainers}/>
         
         return (
             <div className="rgrid-scroll-container-body">
@@ -72,23 +75,6 @@ export default class RGrid extends Component {
                 </table>
             </div>
         );
-    }
-    renderHeaderColumns(colDefs) {
-        if (!colDefs) return null;
-
-        return (
-            <div className="rgrid-header">
-                <div className="rgrid-header-inner">
-                <table>
-                    <thead>
-                        <tr>
-                            {colDefs.map( (columns, idx)=><RGridHeaderCell colDef={columns} key={idx} label={columns.label}/>)}
-                        </tr>
-                    </thead>
-                </table>
-                </div>
-            </div>
-        );    
     }
 
     // eslint-disable-next-line
