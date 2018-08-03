@@ -1,0 +1,144 @@
+div.rgrid {
+	overflow: hidden;
+	position: relative;
+}
+div.rgrid * {
+	/*box-sizing: border-box;*/
+	/*white-space: nowrap;*/
+}
+.loading-animator {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	border: 20px solid gray;
+	border-top-color: blue;
+	border-radius: 50%;
+	animation: round 2s linear infinite;
+	top: 0;
+    bottom: 0;
+    margin: auto;	
+	left: 0;
+	right: 0;
+}
+@keyframes round {
+	from { transform: rotate(0deg) }
+	to { transform: rotate(360deg) }
+}
+div.rgrid div.rgrid-scroll-container-body {
+	overflow-y: scroll;
+}
+div.rgrid  table > tbody > tr > td {
+	vertical-align: top;
+}
+div.rgrid  table, div.rgrid table tbody, div.rgrid table td,  div.rgrid table th {
+	table-layout: auto;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	width:auto;
+	border:none;
+}
+div.rgrid  table .grouped-icons {
+	cursor: pointer;
+	width: 10px;
+	display: inline-block;
+	height: 100%;
+	margin-right: 3px;
+}
+
+div.rgrid  table .grouped-icons .group-collapse {
+	width: 0;
+	height: 0;
+	border-top: 5px solid transparent;
+	border-left: 10px solid red;
+	border-bottom: 5px solid transparent;
+	display: inline-block;
+}
+div.rgrid  table .grouped-icons .group-expand {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 10px solid red;
+	display: inline-block;
+}
+div.rgrid > table{
+	width:100%;
+	border-collapse: collapse;
+}	
+div.rgrid  div.rgrid-header {
+	width:100%;
+	border-bottom: 1px solid black;
+}
+div.rgrid div.rgrid-center div.rgrid-header {
+	overflow: hidden;
+}
+div.rgrid-body-y-scroll > table > tbody > tr > td > div{
+	overflow: hidden;
+}
+div.rgrid-left div.rgrid-body{
+	overflow: hidden;
+}
+div.rgrid  div.rgrid-header > div.rgrid-header-inner{
+	position: relative;
+}
+div.rgrid  div.rgrid-header > div.rgrid-header-inner > table {
+	table-layout: fixed;		
+	width:100%;
+    border-collapse: collapse;		
+}
+div.rgrid  div.rgrid-header > div.rgrid-header-inner > table > thead > tr > th {
+	border:1px solid black;
+	vertical-align: bottom;
+	border:none; /*1px solid blue; */
+	padding: none;
+	margin:none;	
+	
+}
+
+div.rgrid  div.rgrid-body{
+	width:100%;	
+}
+div.rgrid div.rgrid-center div.rgrid-body{
+	overflow-y:scroll;
+}
+div.rgrid  div.rgrid-body > div.rgrid-body-y-scroll{
+	position: relative;
+}
+
+div.rgrid  div.rgrid-body > div.rgrid-body-y-scroll > table{
+	table-layout: fixed;	
+	width:100%;
+	/*border-spacing: 10px;*/
+    border-collapse: collapse;	
+}
+
+div.rgrid  div.rgrid-body > div.rgrid-body-y-scroll > table > tbody > tr > td{
+	border:none; /*1px solid blue; */
+	padding: none;
+	margin:none;	
+	vertical-align: middle;
+}
+div.rgrid  div.rgrid-body > div.rgrid-body-y-scroll > table > tbody > tr > td.grid-cell ,
+div.rgrid  div.rgrid-header > div.rgrid-header-inner > table > thead > tr > th.grid-hdr-cell {
+	padding:3px 2px 3px 8px;
+	vertical-align: middle;
+    border-collapse: collapse;	
+	overflow: hidden;
+}
+div.rgrid  div.rgrid-body > div.rgrid-body-y-scroll > table > tbody > tr:nth-of-type(odd) > td{
+	background-color:lightblue;
+}
+
+div.rgrid div.rgrid-header th.sortable{
+	cursor: pointer;
+}
+
+.text-right{
+	text-align: right;
+}
+.text-left{
+	text-align: left;	
+}
+.text-center{
+	text-align: center;		
+}
