@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import HeaderColumnsContainer from './rgridHeaderColumnsContainer';
+import GridSection from './rgridSection';
 
 export default class ScrollContainerBody extends Component {
 
@@ -10,7 +11,7 @@ export default class ScrollContainerBody extends Component {
                 <table>
                     <tbody>
                         <tr>
-                            { gridContainers.map(container=>this.renderGrid(container)) }
+                        { gridContainers.map(container=><GridSection key={container.key} gridData={this.props.gridData} definition={container} /> ) }
                         </tr>
                     </tbody>
                 </table>

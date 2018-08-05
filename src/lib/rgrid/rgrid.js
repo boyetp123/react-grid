@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import _ from 'lodash';
 import GridSection from './rgridSection';
 
-// import ScrollContainerBody from './rgridScrolContainerBody'
+import ScrollContainerBody from './rgridScrolContainerBody'
 // import RGridBodyRow from './rgridBodyRow';
 // import HeaderColumnsContainer from './rgridHeaderColumnsContainer'
 
@@ -22,32 +22,13 @@ export default class RGrid extends Component {
         this.state = {gridData:[]};
     }
 
-    renderGrid(definition) {
-        return (
-            <GridSection key={definition.key} gridData={this.state.gridData} definition={definition} />
-        )
-    }
     renderGridMain() {
-        
         const gridContainers = [
             {columnsDef:null, sectionName:'left', key: 1},
             {columnsDef:this.props.gridOptions.columnDefs, sectionName:'center', key: 2},
             {columnsDef:null, sectionName:'right', key: 3}
         ]
-
-        // return <ScrollContainerBody gridOptions={this.props.gridOptions} gridContainers={gridContainers}/>
-        
-        return (
-            <div className="rgrid-scroll-container-body">
-                <table>
-                    <tbody>
-                        <tr>
-                            { gridContainers.map(container=>this.renderGrid(container)) }
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        );
+        return <ScrollContainerBody gridData={this.state.gridData} gridOptions={this.props.gridOptions} gridContainers={gridContainers}/>        
     }
 
     // eslint-disable-next-line
