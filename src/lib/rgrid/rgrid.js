@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
-import HeaderColumnsContainer from './rgridHeaderColumnsContainer'
-import ScrollContainerBody from './rgridScrolContainerBody'
 import _ from 'lodash';
-import RGridBodyRow from './rgridBodyRow';
+import GridSection from './rgridSection';
+
+// import ScrollContainerBody from './rgridScrolContainerBody'
+// import RGridBodyRow from './rgridBodyRow';
+// import HeaderColumnsContainer from './rgridHeaderColumnsContainer'
+
+
 // import { ColumnDef, SortClasses, GridHdrClasses, HAlignmentClasses } from './rgridDefs';
 // import moment  from 'moment';
 // import numeral from 'numeraljs';
@@ -19,17 +23,9 @@ export default class RGrid extends Component {
     }
 
     renderGrid(definition) {
-        let retVal = (
-            <td key={definition.key} className={definition.sectionName + "-pane"} >
-                <div className={"rgrid-" + definition.sectionName}>
-                    <HeaderColumnsContainer colDefs={definition.columnsDef} />
-                </div>                    
-                <div className={"rgrid-" + definition.sectionName} id={this.centerBodyUid}>
-                    <RGridBodyRow dataPresenter={null} colDefs={definition.columnsDef} gridData={this.state.gridData}/>
-                </div>
-            </td>
+        return (
+            <GridSection key={definition.key} gridData={this.state.gridData} definition={definition} />
         )
-        return retVal;
     }
     renderGridMain() {
         
