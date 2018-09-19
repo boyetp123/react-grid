@@ -37,7 +37,7 @@ export default class RGrid extends Component {
             <div className="rgrid"> 
                 {this.renderGridMain()}
 
-                <div className="rgrid-hscrollbar-container">
+                {/* <div className="rgrid-hscrollbar-container">
                     <div className="rgrid-hscrollbar-container-left">
                         <div className="scroll-content">&nbsp;</div>
                     </div>
@@ -47,7 +47,7 @@ export default class RGrid extends Component {
                     <div className="rgrid-hscrollbar-container-right">
                         <div className="scroll-content">&nbsp;</div>
                     </div>
-                </div>
+                </div> */}
         </div>
         );
     }
