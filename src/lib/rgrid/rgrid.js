@@ -4,14 +4,6 @@ import _ from 'lodash';
 import GridSection from './rgridSection';
 
 import ScrollContainerBody from './rgridScrolContainerBody'
-// import RGridBodyRow from './rgridBodyRow';
-// import HeaderColumnsContainer from './rgridHeaderColumnsContainer'
-
-
-// import { ColumnDef, SortClasses, GridHdrClasses, HAlignmentClasses } from './rgridDefs';
-// import moment  from 'moment';
-// import numeral from 'numeraljs';
-// import $ from 'jquery';
 
 export default class RGrid extends Component {
     constructor(props) {
@@ -36,19 +28,7 @@ export default class RGrid extends Component {
         return  (
             <div className="rgrid"> 
                 {this.renderGridMain()}
-
-                {/* <div className="rgrid-hscrollbar-container">
-                    <div className="rgrid-hscrollbar-container-left">
-                        <div className="scroll-content">&nbsp;</div>
-                    </div>
-                    <div className="rgrid-hscrollbar-container-center">
-                        <div className="scroll-content">&nbsp;</div>
-                    </div>
-                    <div className="rgrid-hscrollbar-container-right">
-                        <div className="scroll-content">&nbsp;</div>
-                    </div>
-                </div> */}
-        </div>
+            </div>
         );
     }
 

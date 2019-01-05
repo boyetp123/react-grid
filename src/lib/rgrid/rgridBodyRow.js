@@ -3,8 +3,7 @@ import RGridDataCell from './rgridDataCell';
 
 export default class RGridBodyRow extends Component {
     constructor(props) {
-        super(props)
-        // this.state = {gridData:[]};
+        super(props);
         this.defaultBodyCellPresenter = RGridDataCell;
     }
     render() {

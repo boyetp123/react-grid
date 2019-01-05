@@ -26,22 +26,22 @@ AlignmentClasses.set("NUMBER",'text-right');
 AlignmentClasses.set("TEXT",'text-left');
 AlignmentClasses.set("DATE",'text-center');
 */
-export let HAlignmentClasses = {
+export const HAlignmentClasses = {
     NUMBER: 'text-right',
     TEXT: 'text-left',
     DATE: 'text-center',
     DATETIME: 'text-center'
 };
-export let GridHdrClasses = {
+export const GridHdrClasses = {
     GRID_HDR_CELL: 'grid-hdr-cell'
 };
-export let SortClasses = Object.freeze({
+export const SortClasses = Object.freeze({
     SORT_DESC: 'sort-descending',
     SORT_ASC: 'sort-ascending',
     SORT_ICONS: 'sort-icons',
     SORTABLE: 'sortable'
 });
-export let DefaultFormats = Object.freeze({
+export const DefaultFormats = Object.freeze({
     NUMBER: '0,0.0000',
     TEXT: '',
     DATE: 'MM/DD/YYYY',
